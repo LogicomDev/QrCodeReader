@@ -1,0 +1,159 @@
+
+#:import kivy kivy
+#:import win kivy.core.window
+#:import expanduser os.path.expanduser
+
+<QrCode>:
+    BoxLayout:
+    	orientation: "vertical"
+    	size: root.size
+    	size_hint_y: 0.5
+    	Label:
+    		id: lbl_version
+            color: (1, 1, 1, .8)
+            height: '50dp'
+            text: 'QrCode Checker v0.1'
+        BoxLayout:
+        	Label:
+        		text: "Select the type of label:"
+				height: '48dp'
+	        Spinner:
+	        	text: root.product_type
+	        	height: '48dp'
+	        	size_hint_y: None
+	        	values:["Product","Carton"]
+        BoxLayout:
+		    Button:
+		    	id: btn_capture
+		        text: 'Take a photo'
+		        size_hint_y: None
+		        height: '48dp'
+		        on_press: root.capture_picture()
+		    Button:
+		    	id: btn_select
+		        text: 'Select from Gallery'
+		        size_hint_y: None
+		        height: '48dp'
+		        on_press: root.select_picture()
+	    Label:
+	    	text: '---------'
+	    BoxLayout:
+	    	orientation: "horizontal"
+	        Label:
+	        	id: lbl_results
+	            text: 'Verdict :'
+	        TextInput:
+	        	readonly: True
+	        	id: txt_verdict
+	        	height: '48dp'
+	            text: root.verdict
+	    Label:
+	    	text: '---------'
+	    BoxLayout:
+	    	orientation: "horizontal"
+	        Label:
+	        	id: lbl_supplier
+	            text: 'Supplier ID :'
+	        TextInput:
+	        	readonly: True
+	        	id: txt_supplier
+	            text: root.supplier
+	    BoxLayout:
+	    	orientation: "horizontal"
+	        Label:
+	        	id: lbl_model
+	            text: 'Model Name :'
+	        TextInput:
+	        	readonly: True
+	        	id: txt_model
+	            text: root.model
+	    BoxLayout:
+	    	orientation: "horizontal"
+	        Label:
+	        	id: lbl_cartonnb
+	            text: 'Carton Nb :'
+	        TextInput:
+	        	readonly: True
+	        	id: txt_cartonnb
+	            text: root.cartonnb
+	    BoxLayout:
+	    	orientation: "horizontal"
+	        Label:
+	        	id: lbl_batch
+	            text: 'Batch Nb :'
+	        TextInput:
+	        	readonly: True
+	        	id: txt_batchnb
+	            text: root.batchnb
+	    BoxLayout:
+	    	orientation: "horizontal"
+	        Label:
+	        	id: lbl_qty
+	            text: 'Quantity :'
+	        TextInput:
+	        	readonly: True
+	        	id: txt_qty
+	            text: root.qty
+	    BoxLayout:
+	    	orientation: "horizontal"
+	        Label:
+	        	id: lbl_color
+	            text: 'Color :'
+	        TextInput:
+	        	readonly: True
+	        	id: txt_color
+	            text: root.color
+	    BoxLayout:
+	    	orientation: "horizontal"
+	        Label:
+	        	id: lbl_ean
+	            text: 'EAN 13 :'
+	        TextInput:
+	        	readonly: True
+	        	id: txt_ean
+	            text: root.ean
+		Label:
+	    	text: '---------'
+    	BoxLayout:
+	        Label:
+	        	id: lbl_itf
+	            text: 'ITF 14 :'
+	        TextInput:
+	        	readonly: True
+	        	id: txt_itf
+	            text: root.itf
+        Label:
+	    	text: '---------'
+    	BoxLayout:
+	        Label:
+	        	id: lbl_rawtext
+	            text: 'Qr Code Raw data :'
+	        Label:
+	            text: " "
+        TextInput:
+        	readonly: True
+        	id: txt_rawtext
+		    size_hint_y: None
+            text: root.rawtext
+  
+  
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserIconView:
+            id: filechooser
+            filters: ["*.png", "*.jpg", "*.jpeg"]
+            rootpath: expanduser('~')
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Load"
+                on_release: root.load(filechooser.path, filechooser.selection)      
